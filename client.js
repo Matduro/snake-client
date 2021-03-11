@@ -1,25 +1,25 @@
 const net = require('net');
-
+const { IP, PORT } = require('./constants');
 /**
  * Establishes connection with the game server
  */
 const connect = function() {
   const conn = net.createConnection({
-    host: '135.23.222.131',
-    port: 50542
+    host: IP,
+    port: PORT
   });
   // interpret incoming data as text
   conn.setEncoding('utf8');
 
   conn.on("data", (dataFromServer) => {
-    console.log(dataFromServer);
+    console.log('Message from server:', dataFromServer);
   });
 
   conn.on("connect", () => {
     console.log("successfully connected to game server");
     conn.write('Name: MDR');
-
-/*       const interval = () => {
+  });
+  /*       const interval = () => {
     return Math.floor(Math.random() * 100) + 300;
   };
     conn.write('Move: up'); //  move up one square (unless facing down)
@@ -42,7 +42,7 @@ const connect = function() {
       }, interval());
     }, interval());
   */
-  });
+
 
   return conn;
 };
